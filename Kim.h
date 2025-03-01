@@ -11,10 +11,26 @@
  * Created on January 27, 2025
  */
 
-//master clear
+/*
+ TODO
+ *   IMPLEMENT ALL FUNCTIONS:
+ *      send_ATcommand() (not done yet)
+ *      check()          (not done yet)
+ *   TEST FUNCTIONS
+ *    
+ */
+
 #ifndef KIM_H
 #define KIM_H
-#include <stdbool.h>
+
+
+// -------------------------------------------------------------------------- //
+// Includes
+// -------------------------------------------------------------------------- //
+#include <xc.h> 
+#include <p24F16KA101.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #if defined(__PIC24F16KA101__)   //< PIC24F16KA101
 
@@ -40,7 +56,84 @@ typedef enum {
 	TIMEOUT_KIM   			= 0x04   	//!< Timeout, nothing returned by KIM
 } RetStatusKIMTypeDef;
 
-//now to convert the class
+// -------------------------------------- Function specific for sending AT commands to the KIM --------------------------- //
+
+RetStatusKIMTypeDef send_ATcommand();
+
+// ----------------------------------------------------------------------------------------------------------------------- //
+
+uint8_t resp[20];                       //response
+uint8_t command[70];                    //
+uint8_t pin_onOFF_used = 0;             //not used == 0 , used == 1  
+
+// -------------------------------------- AT COMMANDS ------------------------------------------------------------------ //
+
+//This syntaxe is used to be compatible with old versions of gcc
+const uint8_t AT_ID[6] 		= {'A','T','+','I','D','='};					//!< "AT+ID="
+const uint8_t AT_SN[6] 		= {'A','T','+','S','N','='};					//!< "AT+SN="
+const uint8_t AT_SW[6] 		= {'A','T','+','S','W','='};					//!< "AT+SW="
+const uint8_t AT_PWR[7] 		= {'A','T','+','P','W','R','='};			//!< "AT+PWR="
+const uint8_t AT_BAND[8] 		= {'A','T','+','B','A','N','D','='};		//!< "AT+BAND="
+const uint8_t AT_FRQ[7] 		= {'A','T','+','F','R','Q','='};			//!< "AT+FRQ="
+const uint8_t AT_FW[6] 		= {'A','T','+','F','W','='};					//!< "AT+FW="
+const uint8_t AT_TCXOWU[10] 	= {'A','T','+','T','C','X','O','W','U','='};//!< "AT+TCXOWU="		
+const uint8_t AT_TX[6] 		= {'A','T','+','T','X','='};					//!< "AT+TX="
+const uint8_t AT_REQUEST[3] 	= {'?','\r','\0'};							//!< "?\r\0"
+
+// ----------------------------------------------------------------------------------------------------------------------- //
+
+
+// -------------------------------------- 'CONSTRUCTORS' ------------------------------------------------------------------- //
+
+
+//Constructors by name: these values will initialize the pins for the KIM module
+// default constructor 
+void KIM_Init();
+
+//constructor with specific on/off config
+void KIM_Init(uint8_t On_OFF_used);
+
+// ----------------------------------------------------------------------------------------------------------------------- //
+
+// -------------------------------------- ON/OFF CHECKS ------------------------------------------------------------------ //
+
+
+//checks if on/off used. returns 0 if true else 1
+uint8_t check();
+
+
+//sets the status of the on/off pin returns 0 if successful 1 otherwise
+uint8_t setSleepMode(uint8_t mode);
+
+uint8_t getSleepMode(uint8_t mode);
+
+
+// -------------------------------------- Getters/Setters for KIM Module ------------------------------------------------------------------ //
+
+//from the ArduinoKIM github
+/** 
+ *	"Get functions" are used to read the KIM1 module configuration with AT 
+ *	Commands.
+ *	All these functions have the same construction.  
+ *	An AT command is sent through the serial port to ask the chosen parameter.
+ *	The answer is returned.
+ * 
+ *		get_ID();		To get the ID value
+ *		return "+ID:28,7AC8998"
+ *		get_PWR();		To get the transmition power value
+ *		return "+PWR:750"
+ *  
+ */
+
+uint8_t get_ID();
+uint8_t get_SN();
+uint8_t get_FW();
+uint8_t get_PWR();
+uint8_t get_BAND();
+uint8_t get_FRQ();
+uint8_t get_TCXOWU();
+
+
 
 
 
