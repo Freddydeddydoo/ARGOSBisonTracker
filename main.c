@@ -13,6 +13,7 @@
 #include "Kim.h"
 #include "clkChange.h"
 #include "uart.h"
+#include "uart1.h"
 
 #define SLEEP_TIME 90000
 
@@ -37,6 +38,7 @@ int main(int argc, char** argv) {
         Disp2String("KIM Connection: FAILED\n");
     }
     InitUART2();
+    InitUART1();
     KIM_Init();
     newClk(12); 
     

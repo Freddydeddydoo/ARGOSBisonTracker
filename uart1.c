@@ -100,8 +100,7 @@ void XmitUART1(char CharNum, unsigned int repeatNo){
 void recv_KIM(char* input, uint8_t buf_size)
 {	
     uint16_t i = 0;
-    char last_char = 0;  // Stores the most recent received character
-
+   
     while (i < buf_size - 1) {  
         if (RXFlag == 1) {
             if (received_char == '\r' || received_char == '\n') {  // Stop if KIM sends CR/LF
@@ -116,7 +115,17 @@ void recv_KIM(char* input, uint8_t buf_size)
     input[i] = '\0';  
 }
 
+void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void) {
+    if (U1STAbits.OERR) {  // Check for Overrun Error
+        U1STAbits.OERR = 0;  // Clear the error
+    }
 
+    while (U1STAbits.URXDA) {  // While data is available in the buffer
+        received_char = U1RXREG;  // Read the received character from UART
+        RXFlag = 1;  // Set flag to indicate new data
+    }
 
+    IFS0bits.U1RXIF = 0;  
+}
 
 

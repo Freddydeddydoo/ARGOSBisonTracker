@@ -22,6 +22,7 @@
 #include <p24F16KA101.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "uart1.h"
 
 #if defined(__PIC24F16KA101__)   //< PIC24F16KA101
 

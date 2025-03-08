@@ -35,12 +35,12 @@ void KIM_Init(uint8_t On_OFF_used) {
         ON_OFF_KIM_PIN = 0;  // LATB0 = 0
     }
     
-    //set the UART Bits TODO make sure all the pheripherals are set in UART INIT As well
+    //set the UART Bits 
     RX_KIM_TRIS = 1;
     TX_KIM_TRIS = 0; 
 }
 
-//TODO (do get/set sleepmode first)
+
 uint8_t check(){
     setSleepMode(1);
     setSleepMode(0);
@@ -58,7 +58,7 @@ uint8_t check(){
 }
 
 
-//TODO (getsleepmode first)
+
 //mode == will be like a boolean
 uint8_t setSleepMode(uint8_t mode){
     uint8_t bufferdata = 0;
@@ -72,7 +72,7 @@ uint8_t setSleepMode(uint8_t mode){
                 for(int i = 0; i < 2; i++){
                     uint8_t tmp[20] = {0};
                     bufferdata = 0;
-                    RecvUart(tmp, 20);
+                    recv_KIM(tmp, 20);
 
                     
                     for (int j = 0; j < 20; j++) {
@@ -88,7 +88,9 @@ uint8_t setSleepMode(uint8_t mode){
             }   
         }
     }else{
-        return (mode == 1) ? 0 : 1;
+        return (mode == 1) ? 0 : 1; //todo. Need to understand how this works so that we can put it to sleep in the final product.
+                                    //We need to figure out how to turn off UART1 I'm not sure If its just UART1.UEN = 0 I don't even 
+                                    // know if that will save any battery? We might not even need sleepmode tbh Something to discuss
     }
     return 1;
 }
@@ -116,11 +118,11 @@ RetStatusKIMTypeDef send_ATCommand() {
     response[0] = '\0';
 
     // Send command
-    Disp2String(command);
+    sendto_KIM(command);
 
     // Wait and receive response
     for (uint8_t i = 0; i < 10; i++) {
-        RecvUart(response, 20); // Receive UART data
+        recv_KIM(response, 20); // Receive UART data
 
         if ((response[0] != '\0') && response[2] == 'X') {
             return OK_KIM;

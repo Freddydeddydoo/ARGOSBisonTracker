@@ -16,6 +16,7 @@ void InitUART1(void);
 void sendto_KIM(char* str);
 void XmitUART1(char CharNum, unsigned int repeatNo);
 void recv_KIM(char* input, uint8_t buf_size);
+void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void)
 
 #ifndef UART1_H
 #define	UART1_H
