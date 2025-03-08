@@ -11,15 +11,6 @@
  * Created on January 27, 2025
  */
 
-/*
- TODO
- *   IMPLEMENT ALL FUNCTIONS:
- *      send_ATcommand() (not done yet)
- *      check()          (not done yet)
- *   TEST FUNCTIONS
- *    
- */
-
 #ifndef KIM_H
 #define KIM_H
 
@@ -58,17 +49,17 @@ typedef enum {
 
 // -------------------------------------- Function specific for sending AT commands to the KIM --------------------------- //
 
-RetStatusKIMTypeDef send_ATcommand();
+RetStatusKIMTypeDef send_ATCommand();
 
 // ----------------------------------------------------------------------------------------------------------------------- //
 
-uint8_t resp[20];                       //response
+uint8_t response[20];                       //response
 uint8_t command[70];                    //
 uint8_t pin_onOFF_used = 0;             //not used == 0 , used == 1  
 
 // -------------------------------------- AT COMMANDS ------------------------------------------------------------------ //
 
-//This syntaxe is used to be compatible with old versions of gcc
+//This syntax is used to be compatible with old versions of gcc
 const uint8_t AT_ID[6] 		= {'A','T','+','I','D','='};					//!< "AT+ID="
 const uint8_t AT_SN[6] 		= {'A','T','+','S','N','='};					//!< "AT+SN="
 const uint8_t AT_SW[6] 		= {'A','T','+','S','W','='};					//!< "AT+SW="
@@ -87,11 +78,11 @@ const uint8_t AT_REQUEST[3] 	= {'?','\r','\0'};							//!< "?\r\0"
 
 
 //Constructors by name: these values will initialize the pins for the KIM module
-// default constructor 
-void KIM_Init();
+// default constructor
+void KIM_Init();    
 
 //constructor with specific on/off config
-void KIM_Init(uint8_t On_OFF_used);
+void KIM_Init(uint8_t On_OFF_used); 
 
 // ----------------------------------------------------------------------------------------------------------------------- //
 
@@ -105,7 +96,7 @@ uint8_t check();
 //sets the status of the on/off pin returns 0 if successful 1 otherwise
 uint8_t setSleepMode(uint8_t mode);
 
-uint8_t getSleepMode(uint8_t mode);
+uint8_t getSleepMode();
 
 
 // -------------------------------------- Getters/Setters for KIM Module ------------------------------------------------------------------ //
@@ -134,7 +125,27 @@ uint8_t get_FRQ();
 uint8_t get_TCXOWU();
 
 
+/** 
+ * ~~~ Taken from ArduinoKim ~~~
+ *	"Set functions" are used to configure the KIM1 module with AT Commands.
+ *	All these functions have the same construction.  
+ *	An AT command is sent through the serial port to set a value to the
+ *	chosen parameter. RetStatusKIMTypeDef is returned, see RetStatusKIMTypeDef
+ * 	details.
+ *
+ *
+ *		set_BAND("B1", 2);		To set the frequency band on B1
+ *		set_PWR("1000", 4);		To transmit at 1000 mW
+ *		set_PWR("750", 3);		To transmit at 750 mW
+ */
 
+RetStatusKIMTypeDef set_ID(uint8_t ID[], uint8_t len);
+RetStatusKIMTypeDef set_SN(uint8_t SN[], uint8_t len);
+RetStatusKIMTypeDef set_PWR(uint8_t PWR[], uint8_t len);
+RetStatusKIMTypeDef set_BAND(uint8_t BAND[], uint8_t len = 2);
+RetStatusKIMTypeDef set_FRQ(uint8_t FRQ[], uint8_t len);
+RetStatusKIMTypeDef set_TCXOWU(uint8_t TCXOWU[], uint8_t len);
 
-
+		
+RetStatusKIMTypeDef send_data(char data[], uint8_t len);
 #endif	/* KIM_H */
