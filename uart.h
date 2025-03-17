@@ -48,6 +48,13 @@ uint16_t display_dig(uint16_t adc_value, uint16_t lastbarwidth, uint8_t mode);
 
 extern uint8_t CN_event,TMR3_event, TMR2_event,RXFlag; 
 
+extern uint8_t UartSwitch; // an enviorment variable that will switch between uart functions. 1 for UART1, 2 for UART2
+
+void InitUART1(void);
+void sendto_KIM(char* str);
+void XmitUART1(char CharNum, unsigned int repeatNo);
+void recv_KIM(char* input, uint8_t buf_size);
+
 
 
 #ifdef	__cplusplus

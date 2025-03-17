@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "uart1.h"
+#include "uart.h"
 
 #if defined(__PIC24F16KA101__)   //< PIC24F16KA101
 
@@ -54,33 +55,34 @@ RetStatusKIMTypeDef send_ATCommand();
 
 // ----------------------------------------------------------------------------------------------------------------------- //
 
-uint8_t response[20];                       //response
-uint8_t command[70];                    //
-uint8_t pin_onOFF_used = 0;             //not used == 0 , used == 1  
+extern uint8_t response[20];                    //response
+extern uint8_t command[70];                    //
+extern uint8_t pin_onOFF_used;             //not used == 0 , used == 1  
 
 // -------------------------------------- AT COMMANDS ------------------------------------------------------------------ //
 
 //This syntax is used to be compatible with old versions of gcc
-const uint8_t AT_ID[6] 		= {'A','T','+','I','D','='};					//!< "AT+ID="
-const uint8_t AT_SN[6] 		= {'A','T','+','S','N','='};					//!< "AT+SN="
-const uint8_t AT_SW[6] 		= {'A','T','+','S','W','='};					//!< "AT+SW="
-const uint8_t AT_PWR[7] 		= {'A','T','+','P','W','R','='};			//!< "AT+PWR="
-const uint8_t AT_BAND[8] 		= {'A','T','+','B','A','N','D','='};		//!< "AT+BAND="
-const uint8_t AT_FRQ[7] 		= {'A','T','+','F','R','Q','='};			//!< "AT+FRQ="
-const uint8_t AT_FW[6] 		= {'A','T','+','F','W','='};					//!< "AT+FW="
-const uint8_t AT_TCXOWU[10] 	= {'A','T','+','T','C','X','O','W','U','='};//!< "AT+TCXOWU="		
-const uint8_t AT_TX[6] 		= {'A','T','+','T','X','='};					//!< "AT+TX="
-const uint8_t AT_REQUEST[3] 	= {'?','\r','\0'};							//!< "?\r\0"
+extern const uint8_t AT_ID[6];
+extern const uint8_t AT_SN[6];
+extern const uint8_t AT_SW[6];
+extern const uint8_t AT_PWR[7];
+extern const uint8_t AT_BAND[8];
+extern const uint8_t AT_FRQ[7];
+extern const uint8_t AT_FW[6];
+extern const uint8_t AT_TCXOWU[10];
+extern const uint8_t AT_TX[6];
+extern const uint8_t AT_REQUEST[3];
 
 // ----------------------------------------------------------------------------------------------------------------------- //
 
 
 // -------------------------------------- 'CONSTRUCTORS' ------------------------------------------------------------------- //
 
-
+/*
 //Constructors by name: these values will initialize the pins for the KIM module
 // default constructor
 void KIM_Init();    
+*/
 
 //constructor with specific on/off config
 void KIM_Init(uint8_t On_OFF_used); 
@@ -143,7 +145,7 @@ uint8_t get_TCXOWU();
 RetStatusKIMTypeDef set_ID(uint8_t ID[], uint8_t len);
 RetStatusKIMTypeDef set_SN(uint8_t SN[], uint8_t len);
 RetStatusKIMTypeDef set_PWR(uint8_t PWR[], uint8_t len);
-RetStatusKIMTypeDef set_BAND(uint8_t BAND[], uint8_t len = 2);
+RetStatusKIMTypeDef set_BAND(uint8_t BAND[], uint8_t len);
 RetStatusKIMTypeDef set_FRQ(uint8_t FRQ[], uint8_t len);
 RetStatusKIMTypeDef set_TCXOWU(uint8_t TCXOWU[], uint8_t len);
 

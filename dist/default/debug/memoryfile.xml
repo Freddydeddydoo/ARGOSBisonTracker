@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <executable name="dist/default/debug/ARGOS_Tracker.X.debug.elf">
+    <memory name="data">
+      <units>bytes</units>
+      <length>1536</length>
+      <used>228</used>
+      <free>1308</free>
+    </memory>
+    <memory name="program">
+      <units>bytes</units>
+      <length>16128</length>
+      <used>9063</used>
+      <free>7065</free>
+    </memory>
+  </executable>
+</project>

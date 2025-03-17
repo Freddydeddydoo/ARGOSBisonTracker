@@ -2,6 +2,7 @@
 
 
 
+
 void newClk(unsigned int clkval) {
     uint16_t COSCNOSC;
     switch(clkval) {

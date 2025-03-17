@@ -13,7 +13,22 @@
 
 #include "Kim.h"
 
+const uint8_t AT_ID[6]         = {'A','T','+','I','D','='};
+const uint8_t AT_SN[6]         = {'A','T','+','S','N','='};
+const uint8_t AT_SW[6]         = {'A','T','+','S','W','='};
+const uint8_t AT_PWR[7]        = {'A','T','+','P','W','R','='};
+const uint8_t AT_BAND[8]       = {'A','T','+','B','A','N','D','='};
+const uint8_t AT_FRQ[7]        = {'A','T','+','F','R','Q','='};
+const uint8_t AT_FW[6]         = {'A','T','+','F','W','='};
+const uint8_t AT_TCXOWU[10]    = {'A','T','+','T','C','X','O','W','U','='};
+const uint8_t AT_TX[6]         = {'A','T','+','T','X','='};
+const uint8_t AT_REQUEST[3]    = {'?','\r','\0'};
+uint8_t response[20] = {0};   
+uint8_t command[70] = {0};
+uint8_t pin_onOFF_used = 0;             //not used == 0 , used == 1  
+uint8_t UartSwitch = 2; // an enviorment variable that will switch between uart functions. 1 for UART1, 2 for UART2
 
+/*
 //initialize the KIM Pins used for the machine
 void KIM_Init(){
     ON_OFF_KIM_TRIS = 0; //RB0 outputting value to KIM (0 == output, 1 == input)
@@ -22,7 +37,8 @@ void KIM_Init(){
     RX_KIM_TRIS = 1;
     TX_KIM_TRIS = 0; 
 }
-
+ */
+	
 
 void KIM_Init(uint8_t On_OFF_used) {
     ON_OFF_KIM_TRIS = 0; // TRISB0 = 0 ? Set as output
@@ -42,12 +58,12 @@ void KIM_Init(uint8_t On_OFF_used) {
 
 
 uint8_t check(){
-    setSleepMode(1);
-    setSleepMode(0);
+//    setSleepMode(1);
+//    setSleepMode(0);
+    Disp2String("Checking if KIM Successful: press enter after entering AT command\r\n");
+    char tmp = get_ID(); //if success, expected response is :: +ID:xx
     
-    char* tmp = get_ID(); //if success, expected response is :: +ID:xx
-    
-    if(*(tmp) == '+'){
+    if((tmp) == '+'){
         return 1;
     }
     else{
@@ -118,12 +134,21 @@ RetStatusKIMTypeDef send_ATCommand() {
     response[0] = '\0';
 
     // Send command
-    sendto_KIM(command);
+    if(UartSwitch == 1){
+        sendto_KIM(command);
+    }
+    else{
+        Disp2String(command);
+    }
 
     // Wait and receive response
     for (uint8_t i = 0; i < 10; i++) {
-        recv_KIM(response, 20); // Receive UART data
-
+        if(UartSwitch == 1){
+           recv_KIM(response, 20); // Receive UART data
+        }
+        else{
+            RecvUart(response, 20);
+        }
         if ((response[0] != '\0') && response[2] == 'X') {
             return OK_KIM;
         }
@@ -159,7 +184,7 @@ RetStatusKIMTypeDef send_data(char data[], uint8_t len){
 // -------------------------------------- Getters/Setters for KIM Module ------------------------------------------------------------------ //
 
 // Function to get ID
-uint8_t* get_ID() {
+uint8_t get_ID() {
     uint8_t i;
     for (i = 0; i < 6; i++)
         command[i] = AT_ID[i];
@@ -170,7 +195,7 @@ uint8_t* get_ID() {
 }
 
 // Function to get Serial Number
-uint8_t* get_SN() {
+uint8_t get_SN() {
     uint8_t i;
     for (i = 0; i < 6; i++)
         command[i] = AT_SN[i];
@@ -181,7 +206,7 @@ uint8_t* get_SN() {
 }
 
 // Function to get Firmware Version
-uint8_t* get_FW() {
+uint8_t get_FW() {
     uint8_t i;
     for (i = 0; i < 6; i++)
         command[i] = AT_FW[i];
@@ -192,7 +217,7 @@ uint8_t* get_FW() {
 }
 
 // Function to get Transmit Power
-uint8_t* get_PWR() {
+uint8_t get_PWR() {
     uint8_t i;
     for (i = 0; i < 7; i++)
         command[i] = AT_PWR[i];
