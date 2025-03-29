@@ -4,15 +4,10 @@ Tool Name:
   c:\program files\microchip\xc16\v2.10\bin\bin\..\bin/elf-ld.exe
 
 Command:
-  -TC:\\Users\\FARDIN~1\\AppData\\Local\\Temp\\tmp0000395c.00 \
-  -TC:\\Users\\FARDIN~1\\AppData\\Local\\Temp\\tmp0000395c.01 \
-  -TC:\\Users\\FARDIN~1\\AppData\\Local\\Temp\\tmp0000395c.02 \
-  -TC:\\Users\\FARDIN~1\\AppData\\Local\\Temp\\tmp0000395c.03 \
-  -TC:\\Users\\FARDIN~1\\AppData\\Local\\Temp\\tmp0000395c.04 \
   -p24F16KA101 \
   --mdfp=C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC24F-KA-KL-KM_DFP/1.5.253/xc16 \
   -o \
-  dist/default/debug/ARGOS_Tracker.X.debug.elf \
+  dist/default/production/ARGOS_Tracker.X.production.elf \
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/.. \
   -LC:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC24F-KA-KL-KM_DFP/1.5.253/xc16/bin/../support/PIC24F/gld \
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../lib \
@@ -23,15 +18,13 @@ Command:
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/dsPIC33C/gld \
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/dsPIC33E/gld \
   -Lc:/program files/microchip/xc16/v2.10/bin/bin/../../support/dsPIC33F/gld \
-  build/default/debug/main.o \
-  build/default/debug/Kim.o \
-  build/default/debug/clkChange.o \
-  build/default/debug/uart.o \
-  build/default/debug/uart1.o \
+  build/default/production/main.o \
+  build/default/production/Kim.o \
+  build/default/production/clkChange.o \
+  build/default/production/uart.o \
+  build/default/production/uart1.o \
   --defsym=__MPLAB_BUILD=1 \
-  --defsym=__MPLAB_DEBUG=1 \
-  --defsym=__DEBUG=1 \
-  -Tp24F16KA101.gld.05 \
+  -Tp24F16KA101.gld.00 \
   --stack=16 \
   --check-sections \
   --data-init \
@@ -43,10 +36,10 @@ Command:
   --stackguard=16 \
   --no-force-link \
   --smart-io \
-  -Map=dist/default/debug/ARGOS_Tracker.X.debug.map \
+  -Map=dist/default/production/ARGOS_Tracker.X.production.map \
   --report-mem \
   --memorysummary \
-  dist/default/debug/memoryfile.xml \
+  dist/default/production/memoryfile.xml \
   -start-group \
   --library=c99-pic30-elf \
   --library=m-elf \
@@ -64,7 +57,7 @@ c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_
 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
                               (__crt_start_mode_normal)
 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-elf.a(strlen.XX_o)
-                              build/default/debug/uart.o (_strlen)
+                              build/default/production/uart.o (_strlen)
 
 
 Selected CodeGuard Options:
@@ -112,17 +105,12 @@ section                    address   length (PC units)   length (bytes) (dec)
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-reserve_data_0x800           0x800                0x20            0x20  (32)
-reserve_data_0x820           0x820                 0x2             0x2  (2)
-reserve_data_0x822           0x822                 0x2             0x2  (2)
-reserve_data_0x824           0x824                 0x2             0x2  (2)
-reserve_data_0x826           0x826                0x2a            0x2a  (42)
-.nbss                        0x850                   0            0x5c  (92)
-.ndata                       0x8ac                   0             0xe  (14)
-.nbss                        0x8ba                   0             0x8  (8)
-.ndata                       0x8c2                   0             0x2  (2)
+.nbss                        0x800                   0            0x5c  (92)
+.ndata                       0x85c                   0             0xe  (14)
+.nbss                        0x86a                   0             0x8  (8)
+.ndata                       0x872                   0             0x2  (2)
 
-                 Total "data" memory used (bytes):           0xc4  (196) 12%
+                 Total "data" memory used (bytes):           0x74  (116) 7%
 
 
 Dynamic Memory Usage
@@ -130,42 +118,42 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x8c4                               0x53c  (1340)
+stack                        0x874                               0x58c  (1420)
 
-                 Maximum dynamic memory (bytes):          0x53c  (1340)
+                 Maximum dynamic memory (bytes):          0x58c  (1420)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
 
 External Symbols in Data Memory (by address):
 
-                    0x0850                  _response
-                    0x0864                  _command
-                    0x08aa                  _pin_onOFF_used
-                    0x08ac                  _data
-                    0x08ba                  _received_char
-                    0x08bb                  _RXFlag
-                    0x08bc                  _TXFlag
-                    0x08bd                  _CN_event
-                    0x08be                  _TMR2_event
-                    0x08bf                  _TMR3_event
-                    0x08c0                  _received_char_UART1
-                    0x08c2                  _UartSwitch
+                    0x0800                  _response
+                    0x0814                  _command
+                    0x085a                  _pin_onOFF_used
+                    0x085c                  _data
+                    0x086a                  _received_char
+                    0x086b                  _RXFlag
+                    0x086c                  _TXFlag
+                    0x086d                  _CN_event
+                    0x086e                  _TMR2_event
+                    0x086f                  _TMR3_event
+                    0x0870                  _received_char_UART1
+                    0x0872                  _UartSwitch
 
 External Symbols in Data Memory (by name):
 
-                    0x08bd                  _CN_event
-                    0x08bb                  _RXFlag
-                    0x08be                  _TMR2_event
-                    0x08bf                  _TMR3_event
-                    0x08bc                  _TXFlag
-                    0x08c2                  _UartSwitch
-                    0x0864                  _command
-                    0x08ac                  _data
-                    0x08aa                  _pin_onOFF_used
-                    0x08ba                  _received_char
-                    0x08c0                  _received_char_UART1
-                    0x0850                  _response
+                    0x086d                  _CN_event
+                    0x086b                  _RXFlag
+                    0x086e                  _TMR2_event
+                    0x086f                  _TMR3_event
+                    0x086c                  _TXFlag
+                    0x0872                  _UartSwitch
+                    0x0814                  _command
+                    0x085c                  _data
+                    0x085a                  _pin_onOFF_used
+                    0x086a                  _received_char
+                    0x0870                  _received_char_UART1
+                    0x0800                  _response
 
 External Symbols in Program Memory (by address):
 
@@ -283,39 +271,12 @@ FDS              0xf80010           0x000002
 
 Linker script and memory map
 
-
-reserve_data_0x800
-                    0x0800         0x20
-                    0x0820                  . = 0x20
- *fill*             0x0800         0x2000
-
-reserve_data_0x820
-                    0x0820          0x2
-                    0x0822                  . = 0x2
- *fill*             0x0820          0x200
-
-reserve_data_0x822
-                    0x0822          0x2
-                    0x0824                  . = 0x2
- *fill*             0x0822          0x200
-
-reserve_data_0x824
-                    0x0824          0x2
-                    0x0826                  . = 0x2
- *fill*             0x0824          0x200
-
-reserve_data_0x826
-                    0x0826         0x2a
-                    0x0850                  . = 0x2a
- *fill*             0x0826         0x2a00
-LOAD build/default/debug/main.o
-LOAD build/default/debug/Kim.o
-LOAD build/default/debug/clkChange.o
-LOAD build/default/debug/uart.o
-LOAD build/default/debug/uart1.o
+LOAD build/default/production/main.o
+LOAD build/default/production/Kim.o
+LOAD build/default/production/clkChange.o
+LOAD build/default/production/uart.o
+LOAD build/default/production/uart1.o
                     0x0001                  __MPLAB_BUILD = 0x1
-                    0x0001                  __MPLAB_DEBUG = 0x1
-                    0x0001                  __DEBUG = 0x1
 LOAD pPIC24Fxxx
 LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libfx-elf.a
                     0xf80000                  __FBS = 0xf80000
@@ -354,7 +315,7 @@ LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libfx-elf.a
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x0002c8         0x36 build/default/debug/uart.o
+ .isr.text        0x0002c8         0x36 build/default/production/uart.o
                   0x0002c8                  __U1RXInterrupt
                   0x0002e8                  __U2RXInterrupt
  .isr             0x0002fe          0x4 default_isr
@@ -375,12 +336,12 @@ usercode
 
 __FBS             0xf80000          0x2
  *(__FBS.sec*)
- __FBS.sec        0xf80000          0x2 /CW/_FBS`ÏÚ
+ __FBS.sec        0xf80000          0x2 /CW/_FBS@íÔ
                   0xf80000                  __FBS.sec
 
 __FGS             0xf80004          0x2
  *(__FGS.sec*)
- __FGS.sec        0xf80004          0x2 /CW/_FGS@¯Ú
+ __FGS.sec        0xf80004          0x2 /CW/_FGS°]Õ
                   0xf80004                  __FGS.sec
 
 __FOSCSEL
@@ -406,41 +367,41 @@ __FDS
 
 .debug_info       0x000000       0x2980
  *(.debug_info)
- .debug_info      0x000000        0x1de build/default/debug/main.o
- .debug_info      0x0001de        0xa10 build/default/debug/Kim.o
- .debug_info      0x000bee        0x554 build/default/debug/clkChange.o
- .debug_info      0x001142       0x16ed build/default/debug/uart.o
- .debug_info      0x00282f        0x151 build/default/debug/uart1.o
+ .debug_info      0x000000        0x1de build/default/production/main.o
+ .debug_info      0x0001de        0xa10 build/default/production/Kim.o
+ .debug_info      0x000bee        0x554 build/default/production/clkChange.o
+ .debug_info      0x001142       0x16ed build/default/production/uart.o
+ .debug_info      0x00282f        0x151 build/default/production/uart1.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x50e
  *(.debug_abbrev)
- .debug_abbrev    0x000000         0x96 build/default/debug/main.o
- .debug_abbrev    0x000096        0x17f build/default/debug/Kim.o
- .debug_abbrev    0x000215        0x123 build/default/debug/clkChange.o
- .debug_abbrev    0x000338        0x1b7 build/default/debug/uart.o
- .debug_abbrev    0x0004ef         0x1f build/default/debug/uart1.o
+ .debug_abbrev    0x000000         0x96 build/default/production/main.o
+ .debug_abbrev    0x000096        0x17f build/default/production/Kim.o
+ .debug_abbrev    0x000215        0x123 build/default/production/clkChange.o
+ .debug_abbrev    0x000338        0x1b7 build/default/production/uart.o
+ .debug_abbrev    0x0004ef         0x1f build/default/production/uart1.o
 
 .debug_line       0x000000        0x5ba
  *(.debug_line)
- .debug_line      0x000000        0x10b build/default/debug/main.o
- .debug_line      0x00010b        0x1a6 build/default/debug/Kim.o
- .debug_line      0x0002b1        0x117 build/default/debug/clkChange.o
- .debug_line      0x0003c8        0x1d8 build/default/debug/uart.o
- .debug_line      0x0005a0         0x1a build/default/debug/uart1.o
+ .debug_line      0x000000        0x10b build/default/production/main.o
+ .debug_line      0x00010b        0x1a6 build/default/production/Kim.o
+ .debug_line      0x0002b1        0x117 build/default/production/clkChange.o
+ .debug_line      0x0003c8        0x1d8 build/default/production/uart.o
+ .debug_line      0x0005a0         0x1a build/default/production/uart1.o
 
 .debug_frame      0x000000        0x308
  *(.debug_frame)
- .debug_frame     0x000000         0x2e build/default/debug/main.o
- .debug_frame     0x00002e        0x14c build/default/debug/Kim.o
- .debug_frame     0x00017a         0x2e build/default/debug/clkChange.o
- .debug_frame     0x0001a8        0x160 build/default/debug/uart.o
+ .debug_frame     0x000000         0x2e build/default/production/main.o
+ .debug_frame     0x00002e        0x14c build/default/production/Kim.o
+ .debug_frame     0x00017a         0x2e build/default/production/clkChange.o
+ .debug_frame     0x0001a8        0x160 build/default/production/uart.o
 
 .debug_str        0x000000        0x156
  *(.debug_str)
- .debug_str       0x000000         0x4b build/default/debug/Kim.o
- .debug_str       0x00004b         0x16 build/default/debug/clkChange.o
- .debug_str       0x000061         0xf5 build/default/debug/uart.o
+ .debug_str       0x000000         0x4b build/default/production/Kim.o
+ .debug_str       0x00004b         0x16 build/default/production/clkChange.o
+ .debug_str       0x000061         0xf5 build/default/production/uart.o
 
 .debug_loc
  *(.debug_loc)
@@ -452,13 +413,13 @@ __FDS
                   0x000000        0x2da
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x24 build/default/debug/main.o
+                  0x000000         0x24 build/default/production/main.o
  .debug_pubnames
-                  0x000024        0x15b build/default/debug/Kim.o
+                  0x000024        0x15b build/default/production/Kim.o
  .debug_pubnames
-                  0x00017f         0x1d build/default/debug/clkChange.o
+                  0x00017f         0x1d build/default/production/clkChange.o
  .debug_pubnames
-                  0x00019c        0x13e build/default/debug/uart.o
+                  0x00019c        0x13e build/default/production/uart.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -466,13 +427,13 @@ __FDS
 .debug_aranges    0x000000         0x60
  *(.debug_aranges)
  .debug_aranges
-                  0x000000         0x18 build/default/debug/main.o
+                  0x000000         0x18 build/default/production/main.o
  .debug_aranges
-                  0x000018         0x18 build/default/debug/Kim.o
+                  0x000018         0x18 build/default/production/Kim.o
  .debug_aranges
-                  0x000030         0x18 build/default/debug/clkChange.o
+                  0x000030         0x18 build/default/production/clkChange.o
  .debug_aranges
-                  0x000048         0x18 build/default/debug/uart.o
+                  0x000048         0x18 build/default/production/uart.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -878,37 +839,37 @@ LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a
 LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-elf.a
 END GROUP
-OUTPUT(dist/default/debug/ARGOS_Tracker.X.debug.elf elf32-pic30)
-LOAD /CW/_FGS@¯Ú
-LOAD /CW/_FBS`ÏÚ
+OUTPUT(dist/default/production/ARGOS_Tracker.X.production.elf elf32-pic30)
+LOAD /CW/_FGS°]Õ
+LOAD /CW/_FBS@íÔ
 LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
                   0x000060        0x2e0
  .debug_pubtypes
-                  0x000060         0x1f build/default/debug/main.o
+                  0x000060         0x1f build/default/production/main.o
  .debug_pubtypes
-                  0x00007f         0x9e build/default/debug/Kim.o
+                  0x00007f         0x9e build/default/production/Kim.o
  .debug_pubtypes
-                  0x00011d         0x7a build/default/debug/clkChange.o
+                  0x00011d         0x7a build/default/production/clkChange.o
  .debug_pubtypes
-                  0x000197        0x197 build/default/debug/uart.o
+                  0x000197        0x197 build/default/production/uart.o
  .debug_pubtypes
-                  0x00032e         0x12 build/default/debug/uart1.o
+                  0x00032e         0x12 build/default/production/uart1.o
 
 __c30_signature
                   0x000340         0x30
  __c30_signature
-                  0x000340          0x6 build/default/debug/main.o
+                  0x000340          0x6 build/default/production/main.o
  __c30_signature
-                  0x000346          0x6 build/default/debug/Kim.o
+                  0x000346          0x6 build/default/production/Kim.o
  __c30_signature
-                  0x00034c          0x6 build/default/debug/clkChange.o
+                  0x00034c          0x6 build/default/production/clkChange.o
  __c30_signature
-                  0x000352          0x6 build/default/debug/uart.o
+                  0x000352          0x6 build/default/production/uart.o
  __c30_signature
-                  0x000358          0x6 build/default/debug/uart1.o
+                  0x000358          0x6 build/default/production/uart1.o
  __c30_signature
                   0x00035e          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
  __c30_signature
@@ -916,63 +877,63 @@ __c30_signature
  __c30_signature
                   0x00036a          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-elf.a(strlen.XX_o)
 
-.nbss               0x0850         0x5c
- .nbss              0x0850         0x5c build/default/debug/Kim.o
-                    0x0850                  _response
-                    0x0864                  _command
-                    0x08aa                  _pin_onOFF_used
+.nbss               0x0800         0x5c
+ .nbss              0x0800         0x5c build/default/production/Kim.o
+                    0x0800                  _response
+                    0x0814                  _command
+                    0x085a                  _pin_onOFF_used
 
-.ndata              0x08ac          0xe
- .ndata             0x08ac          0xe build/default/debug/main.o
-                    0x08ac                  _data
+.ndata              0x085c          0xe
+ .ndata             0x085c          0xe build/default/production/main.o
+                    0x085c                  _data
 
-.nbss               0x08ba          0x8
- .nbss              0x08ba          0x8 build/default/debug/uart.o
-                    0x08ba                  _received_char
-                    0x08bb                  _RXFlag
-                    0x08bc                  _TXFlag
-                    0x08bd                  _CN_event
-                    0x08be                  _TMR2_event
-                    0x08bf                  _TMR3_event
-                    0x08c0                  _received_char_UART1
+.nbss               0x086a          0x8
+ .nbss              0x086a          0x8 build/default/production/uart.o
+                    0x086a                  _received_char
+                    0x086b                  _RXFlag
+                    0x086c                  _TXFlag
+                    0x086d                  _CN_event
+                    0x086e                  _TMR2_event
+                    0x086f                  _TMR3_event
+                    0x0870                  _received_char_UART1
 
-.ndata              0x08c2          0x2
- .ndata             0x08c2          0x2 build/default/debug/Kim.o
-                    0x08c2                  _UartSwitch
+.ndata              0x0872          0x2
+ .ndata             0x0872          0x2 build/default/production/Kim.o
+                    0x0872                  _UartSwitch
 
 .config_DSWDTEN
                   0xf80010          0x2
  .config_DSWDTEN
-                  0xf80010          0x2 build/default/debug/main.o
+                  0xf80010          0x2 build/default/production/main.o
 
 .config_BKBUG     0xf8000e          0x2
- .config_BKBUG    0xf8000e          0x2 build/default/debug/main.o
+ .config_BKBUG    0xf8000e          0x2 build/default/production/main.o
 
 .config_MCLRE     0xf8000c          0x2
- .config_MCLRE    0xf8000c          0x2 build/default/debug/main.o
+ .config_MCLRE    0xf8000c          0x2 build/default/production/main.o
 
 .config_FWDTEN    0xf8000a          0x2
  .config_FWDTEN
-                  0xf8000a          0x2 build/default/debug/main.o
+                  0xf8000a          0x2 build/default/production/main.o
 
 .config_FCKSM     0xf80008          0x2
- .config_FCKSM    0xf80008          0x2 build/default/debug/main.o
+ .config_FCKSM    0xf80008          0x2 build/default/production/main.o
 
 .config_IESO      0xf80006          0x2
- .config_IESO     0xf80006          0x2 build/default/debug/main.o
+ .config_IESO     0xf80006          0x2 build/default/production/main.o
 
 .ivt._U1RXInterrupt
                   0x00002a          0x2
  .ivt._U1RXInterrupt
-                  0x00002a          0x2 build/default/debug/uart.o
+                  0x00002a          0x2 build/default/production/uart.o
 
 .ivt._U2RXInterrupt
                   0x000050          0x2
  .ivt._U2RXInterrupt
-                  0x000050          0x2 build/default/debug/uart.o
+                  0x000050          0x2 build/default/production/uart.o
 
 .const              0x8334         0x92 load address 0x000334  
- .const             0x8334         0x86 build/default/debug/Kim.o
+ .const             0x8334         0x86 build/default/production/Kim.o
                     0x8334                  _AT_ID
                     0x833a                  _AT_SN
                     0x8340                  _AT_SW
@@ -983,10 +944,10 @@ __c30_signature
                     0x8362                  _AT_TCXOWU
                     0x836c                  _AT_TX
                     0x8372                  _AT_REQUEST
- .const             0x83ba          0xc build/default/debug/uart.o
+ .const             0x83ba          0xc build/default/production/uart.o
 
 .text             0x0003c6        0x6de
- .text            0x0003c6        0x386 build/default/debug/Kim.o
+ .text            0x0003c6        0x386 build/default/production/Kim.o
                   0x0003c6                  _KIM_Init
                   0x0003e6                  _check
                   0x000408                  _setSleepMode
@@ -999,7 +960,7 @@ __c30_signature
                   0x00063a                  _get_PWR
                   0x000680                  _set_ID
                   0x0006e6                  _set_SN
- .text            0x00074c        0x2ea build/default/debug/uart.o
+ .text            0x00074c        0x2ea build/default/production/uart.o
                   0x00074c                  _InitUART2
                   0x0007d8                  _Disp2String
                   0x0007fa                  _XmitUART2
@@ -1010,12 +971,12 @@ __c30_signature
                   0x00094a                  _recv_KIM
                   0x000986                  _RecvUartChar
                   0x0009e2                  _RecvUartChar_NoEnter
- .text            0x000a36         0x6e build/default/debug/clkChange.o
+ .text            0x000a36         0x6e build/default/production/clkChange.o
                   0x000a36                  _newClk
 
 .dinit            0x000aa4         0x26
  .dinit           0x000aa4         0x26 data_init
 
 .text             0x000aca         0x1a
- .text            0x000aca         0x1a build/default/debug/main.o
+ .text            0x000aca         0x1a build/default/production/main.o
                   0x000aca                  _main

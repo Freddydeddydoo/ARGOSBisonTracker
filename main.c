@@ -64,7 +64,6 @@
 /*
  * 
  */
-
 //sending data:
 //UartInit2 for user readablility. will not be used in final product.
 char data[] = "ABCDEF1234567";
@@ -77,40 +76,49 @@ int main() {
     //we will have both of them be 4800 baud to keep it consistent.
     
     AD1PCFG = 0xFFFF;// set so ALL pins are digital.
-    newClk(500); 
+    newClk(8); 
     
     InitUART2();
     InitUART1();
-    KIM_Init(0);
+    KIM_Init(1);
 
-    
-    if (check()) {
-        Disp2String("KIM Connection: OK\n");
-    } else {
-        Disp2String("KIM Connection: FAILED\n");
-        return (EXIT_SUCCESS);
-    }
-    
-    //getters to check if it actually works.
     while(1){
+        //Test XmitUART 1 and 2 here and now
         
-        Disp2String("KIM -- Sending Data\n"); 
-        if(send_data(data, sizeof(data)-1) == OK_KIM){
-           Disp2String("Message Sent!\n"); 
-        }
-        else{
-           Disp2String("Error!\n");  
-        }
-        Disp2String("KIM -- Turn OFF\n");
-        
-//      Will be needed later to put the KIM to sleep for whatever reason. 
-//        setSleepMode(1);                        //set sleep mode
-        
-        for(int i = 0; i < SLEEP_TIME; i++){}
-//        setSleepMode(0);                        //reset sleep mode to clear buffer 
+        for(int i = 0; i < 50000; i++) { }
+        sendto_KIM("I EAT DOG \r\n");
+        for(int i = 0; i < 50000; i++) { }
         
     }
-    
+//    
+//    if (check()) {
+//        Disp2String("KIM Connection: OK\n");
+//        Disp2String("KIM Connection: OK\n");
+//    } else {
+//        Disp2String("KIM Connection: FAILED\n");
+//        return (EXIT_SUCCESS);
+//    }
+//    
+//    //getters to check if it actually works.
+//    while(1){
+//        
+//        Disp2String("KIM -- Sending Data\n"); 
+//        if(send_data(data, sizeof(data)-1) == OK_KIM){
+//           Disp2String("Message Sent!\n"); 
+//        }
+//        else{
+//           Disp2String("Error!\n");  
+//        }
+//        Disp2String("KIM -- Turn OFF\n");
+//        
+////      Will be needed later to put the KIM to sleep for whatever reason. 
+////        setSleepMode(1);                        //set sleep mode
+//        
+//        for(int i = 0; i < SLEEP_TIME; i++){}
+////        setSleepMode(0);                        //reset sleep mode to clear buffer 
+//        
+//    }
+//    
     return (EXIT_SUCCESS);
 }
 

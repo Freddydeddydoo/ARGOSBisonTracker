@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Fardin%20Mahid/MPLABXProjects/FARDIN_MPLAB_PORT/ARGOSBisonTracker-main/Kim.h</file>
-            <file>file:/C:/Users/Fardin%20Mahid/MPLABXProjects/FARDIN_MPLAB_PORT/ARGOSBisonTracker-main/uart.c</file>
-            <file>file:/C:/Users/Fardin%20Mahid/MPLABXProjects/FARDIN_MPLAB_PORT/ARGOSBisonTracker-main/clkChange.c</file>
-            <file>file:/C:/Users/Fardin%20Mahid/MPLABXProjects/FARDIN_MPLAB_PORT/ARGOSBisonTracker-main/main.c</file>
-            <file>file:/C:/Users/Fardin%20Mahid/MPLABXProjects/FARDIN_MPLAB_PORT/ARGOSBisonTracker-main/uart.h</file>
-            <file>file:/C:/Users/Fardin%20Mahid/MPLABXProjects/FARDIN_MPLAB_PORT/ARGOSBisonTracker-main/Kim.c</file>
-            <file>file:/C:/Users/Fardin%20Mahid/MPLABXProjects/FARDIN_MPLAB_PORT/ARGOSBisonTracker-main/clkChange.h</file>
+            <file>file:/C:/Users/Fardin%20Mahid/MPLABXProjects/ARGOS_Tracker.X/clkChange.c</file>
+            <file>file:/C:/Users/Fardin%20Mahid/MPLABXProjects/ARGOS_Tracker.X/Kim.h</file>
+            <file>file:/C:/Users/Fardin%20Mahid/MPLABXProjects/ARGOS_Tracker.X/uart.c</file>
+            <file>file:/C:/Users/Fardin%20Mahid/MPLABXProjects/ARGOS_Tracker.X/main.c</file>
+            <file>file:/C:/Users/Fardin%20Mahid/MPLABXProjects/ARGOS_Tracker.X/uart.h</file>
+            <file>file:/C:/Users/Fardin%20Mahid/MPLABXProjects/ARGOS_Tracker.X/Kim.c</file>
         </group>
     </open-files>
 </project-private>

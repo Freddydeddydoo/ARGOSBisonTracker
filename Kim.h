@@ -28,8 +28,8 @@
 #if defined(__PIC24F16KA101__)   //< PIC24F16KA101
 
 // Define ON/OFF control pin for KIM module
-#define ON_OFF_KIM_PIN  LATBbits.LATB0  // RB0 output
-#define ON_OFF_KIM_TRIS TRISBbits.TRISB0 // Set RB0 as output
+#define ON_OFF_KIM_PIN  LATAbits.LATA0  // RA0 output
+#define ON_OFF_KIM_TRIS TRISAbits.TRISA0 // Set RA0 as output
 
 // UART Communication Pins
 #define RX_KIM          PORTBbits.RB2  // Read from RB2

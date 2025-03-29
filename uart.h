@@ -52,7 +52,7 @@ extern uint8_t UartSwitch; // an enviorment variable that will switch between ua
 
 void InitUART1(void);
 void sendto_KIM(char* str);
-void XmitUART1(char CharNum, unsigned int repeatNo);
+void XmitUART1(unsigned char CharNum, unsigned int repeatNo);
 void recv_KIM(char* input, uint8_t buf_size);
 
 

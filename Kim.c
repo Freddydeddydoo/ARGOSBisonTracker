@@ -26,7 +26,7 @@ const uint8_t AT_REQUEST[3]    = {'?','\r','\0'};
 uint8_t response[20] = {0};   
 uint8_t command[70] = {0};
 uint8_t pin_onOFF_used = 0;             //not used == 0 , used == 1  
-uint8_t UartSwitch = 2; // an enviorment variable that will switch between uart functions. 1 for UART1, 2 for UART2
+uint8_t UartSwitch = 1; // an enviorment variable that will switch between uart functions. 1 for UART1, 2 for UART2
 
 /*
 //initialize the KIM Pins used for the machine
@@ -51,7 +51,7 @@ void KIM_Init(uint8_t On_OFF_used) {
         ON_OFF_KIM_PIN = 0;  // LATB0 = 0
     }
     
-    //set the UART Bits 
+//    //set the UART Bits 
     RX_KIM_TRIS = 1;
     TX_KIM_TRIS = 0; 
 }
@@ -60,10 +60,12 @@ void KIM_Init(uint8_t On_OFF_used) {
 uint8_t check(){
 //    setSleepMode(1);
 //    setSleepMode(0);
-    Disp2String("Checking if KIM Successful: press enter after entering AT command\r\n");
-    char tmp = get_ID(); //if success, expected response is :: +ID:xx
+//    Disp2String("Checking if KIM Successful: press enter after entering AT command\r\n");
+    sendto_KIM("Checking if KIM Successful: press enter after entering AT command\r\n");
     
-    if((tmp) == '+'){
+    uint8_t *tmp = get_ID(); //if success, expected response is :: +ID:xx
+    Idle();
+    if(*(tmp) == '+'){
         return 1;
     }
     else{

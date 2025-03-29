@@ -45,7 +45,7 @@ void InitUART2(void)
     
     if (OSCCONbits.COSC == 0b110)
 	{
-		U2BRG = 12;	// TARGET: 4800 baud @ 500 kHz FOSC
+		U2BRG = 12;	// TARGET: 9600 baud @ 500 kHz FOSC
 	}
 	else if (OSCCONbits.COSC == 0b101)
 	{
@@ -102,6 +102,7 @@ void Disp2String(char *str) //Displays String of characters
 void XmitUART2(char CharNum, unsigned int repeatNo)
 {	
 	U2STAbits.UTXEN = 1; // We start the UART transmission
+    
 	while(repeatNo!=0) 
 	{
 		while(U2STAbits.UTXBF==1)   // We loop here because if the UART buffer is not 0, we do not write to it, so we loop indefinitely until we can.
@@ -183,18 +184,10 @@ void InitUART1(void)
     U1MODEbits.PDSEL = 0;  // 8-bit data, no parity
     U1MODEbits.STSEL = 0;  // 1 stop bit
 
-    // Set Baud Rate for KIM (4800 baud)
+    // Set Baud Rate for KIM (9600 baud)
     if (OSCCONbits.COSC == 0b110)
     {
-        U1BRG = 12; // 4800 baud @ 500 kHz FOSC
-    }
-    else if (OSCCONbits.COSC == 0b101)
-    {
-        U1BRG = 12; // 300 baud @ 32 kHz FOSC
-    }
-    else if (OSCCONbits.COSC == 0b000)
-    {
-        U1BRG = 12; // 4800 baud @ 8 MHz FOSC
+        U1BRG = 103; // 9600 baud @ 8 Mhz FOSC
     }
 
     // Interrupt Configurations
@@ -207,20 +200,18 @@ void InitUART1(void)
     IFS0bits.U1TXIF = 0;  // Clear TX Interrupt Flag
     IPC3bits.U1TXIP = 3;  // Set UART1 TX interrupt priority
     IEC0bits.U1TXIE = 1;  // Enable TX Interrupt
-
+   
     IFS0bits.U1RXIF = 0;  // Clear RX Interrupt Flag
     IPC2bits.U1RXIP = 4;  // Set UART1 RX interrupt priority
     IEC0bits.U1RXIE = 1;  // Enable RX Interrupt
-
-    U1MODEbits.UARTEN = 1; // Enable UART1
-
-//  U1STAbits.UTXEN = 1; // Enable TX (if needed in main loop)
+    
+    U1MODEbits.UARTEN = 1; // Enable UART1  
     
 }
 
 void sendto_KIM(char* str){
     unsigned int i;
-    for (i=0; i<= strlen(str); i++)
+    for (i=0; i< strlen(str); i++)
     {
         XmitUART1(str[i],1);
     }
@@ -229,7 +220,8 @@ void sendto_KIM(char* str){
     
 }
 
-void XmitUART1(char CharNum, unsigned int repeatNo){
+void XmitUART1(unsigned char CharNum, unsigned int repeatNo){
+    
     U1STAbits.UTXEN = 1; // We start the UART transmission
 	while(repeatNo!=0) 
 	{
@@ -243,8 +235,7 @@ void XmitUART1(char CharNum, unsigned int repeatNo){
 	{                               // is not empty,and a transmission is in progress or queued, we cannot transmit so we loop indefinitely until we can.
 	}
 
-    U1STAbits.UTXEN = 0;
-    
+    U1STAbits.UTXEN = 0;    
 }
 
 
@@ -276,7 +267,12 @@ void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void) {
     IFS0bits.U1RXIF = 0;  
 }
 
-
+//void __attribute__ ((interrupt, no_auto_psv)) _U1TXInterrupt(void) {
+//	IFS0bits.U1TXIF = 0;
+//    
+//    TXFlag = 1;
+//
+//}
 /************************************************************************
  * Receive a single (alphanumeric) character over UART
  * Description: This function allows you to receive a single character, which will only be 
@@ -357,48 +353,48 @@ char RecvUartChar_NoEnter(char last_char)
 }
 
 
-
-uint16_t display_bar_graph(uint16_t adc_value, uint16_t lastbarwidth, char which_char) {
-    
-    // Calculate the proportional width of the bar (0 to MAX_BAR_WIDTH)
-    uint16_t bar_width = (adc_value * MAX_BAR_WIDTH) / ADC_reso;
-
-    // Create a string to represent the bar
-    char bar[MAX_BAR_WIDTH + 1];  // +1 for the null-terminator
-    for (uint16_t i = 0; i < bar_width; i++) {
-        bar[i] = which_char;  // Fill the bar with '=' characters
-    }
-    bar[bar_width] = '\0';  // Null-terminate the string
-
-    // Display the bar graph using Disp2String
-    Disp2String(bar);  // Send the bar to UART
-    //Disp2String("\n");  // Optionally add a newline for clarity
-    
-    return bar_width; //returns the bar width that was used last
-}
-
-uint16_t display_dig(uint16_t adc_value, uint16_t lastbarwidth, uint8_t mode) {
-char display_buffer[20];  // Buffer for formatted string
-
-    // Check the mode and format the `adc_value` accordingly
-    if (mode == 0) {
-        // Display in decimal format
-        sprintf(display_buffer, "%u", adc_value);  // Format adc_value as unsigned decimal
-    } else if (mode == 1) {
-        // Display in hexadecimal format
-        sprintf(display_buffer, "0x%X", adc_value);  // Format adc_value as hexadecimal
-    } else {
-        // Invalid mode, return without displaying anything
-        return 0;
-    }
-
-    // Display the formatted string
-    Disp2String(display_buffer);
-
-    // Return the length of the display for use as `lastbarwidth` in subsequent calls. 
-    //This part is unused now that I am flashing the whole screen.
-    return (uint16_t)strlen(display_buffer);
-}
+//
+//uint16_t display_bar_graph(uint16_t adc_value, uint16_t lastbarwidth, char which_char) {
+//    
+//    // Calculate the proportional width of the bar (0 to MAX_BAR_WIDTH)
+//    uint16_t bar_width = (adc_value * MAX_BAR_WIDTH) / ADC_reso;
+//
+//    // Create a string to represent the bar
+//    char bar[MAX_BAR_WIDTH + 1];  // +1 for the null-terminator
+//    for (uint16_t i = 0; i < bar_width; i++) {
+//        bar[i] = which_char;  // Fill the bar with '=' characters
+//    }
+//    bar[bar_width] = '\0';  // Null-terminate the string
+//
+//    // Display the bar graph using Disp2String
+//    Disp2String(bar);  // Send the bar to UART
+//    //Disp2String("\n");  // Optionally add a newline for clarity
+//    
+//    return bar_width; //returns the bar width that was used last
+//}
+//
+//uint16_t display_dig(uint16_t adc_value, uint16_t lastbarwidth, uint8_t mode) {
+//char display_buffer[20];  // Buffer for formatted string
+//
+//    // Check the mode and format the `adc_value` accordingly
+//    if (mode == 0) {
+//        // Display in decimal format
+//        sprintf(display_buffer, "%u", adc_value);  // Format adc_value as unsigned decimal
+//    } else if (mode == 1) {
+//        // Display in hexadecimal format
+//        sprintf(display_buffer, "0x%X", adc_value);  // Format adc_value as hexadecimal
+//    } else {
+//        // Invalid mode, return without displaying anything
+//        return 0;
+//    }
+//
+//    // Display the formatted string
+//    Disp2String(display_buffer);
+//
+//    // Return the length of the display for use as `lastbarwidth` in subsequent calls. 
+//    //This part is unused now that I am flashing the whole screen.
+//    return (uint16_t)strlen(display_buffer);
+//}
 
 
 
@@ -414,9 +410,9 @@ void __attribute__ ((interrupt, no_auto_psv)) _U2RXInterrupt(void) {
     //LATBbits.LATB8 ^= 1;
 }
 
-void __attribute__ ((interrupt, no_auto_psv)) _U2TXInterrupt(void) {
-	IFS1bits.U2TXIF = 0;
-    
-    TXFlag = 1;
-
-}
+//void __attribute__ ((interrupt, no_auto_psv)) _U2TXInterrupt(void) {
+//	IFS1bits.U2TXIF = 0;
+//    
+//    TXFlag = 1;
+//
+//}
